@@ -9,14 +9,16 @@ import session from "express-session";
 import dotenv from "dotenv";
 import initializePassport from "./config/passport.config.js";
 import MongoStore from "connect-mongo";
+import dotenv from "dotenv"
 
 //Rutas
-import viewsRoutes from "./routes/views.router.js"
-import userViewsRouter from "./user.views.router.js"
+import userViewsRouter from "./routes/users.views.router.js"
 import sessionRouter from "./routes/session.router.js"
 
 //express
 const app = express ()
+//dotenv
+dotenv.config()
 
 //JSON config
 app.use(express.json())
@@ -29,10 +31,10 @@ app.set(`view engine`, `handlebars`)
 app.use(express.static(__dirname+`/public`))
 
 //mongo
-const MONGO_URL = ``
+const url_Mongo = process.env.MONGO_URl
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: MONGO_URL,
+        mongoUrl: url_Mongo,
         mongoOptions: {userNewUrlParser:true, useUnifiedTopology:true},
         ttl:480
     }),
@@ -47,6 +49,24 @@ app.use(passport.initialize())
 
 
 //routes
-app.use("/", viewsRoutes )
-app.use("/user", userViewsRouterRoutes)
+
+app.use("/user", userViewsRouter)
 app.use("/api/sessions", sessionRouter)
+
+
+const SERVER_PORT=process.env.SERVER_PORT
+app.listen(SERVER_PORT,() => {
+    console.log("escuchando el puerto" + SERVER_PORT)
+})
+
+const connectMongoDB= async () => {
+    try {
+        await mongoose.connect(url_Mongo)
+        console.log("conectado con MongoDB")
+    } catch (error) {
+        console.error("no se pudo establecer conexion con Mongo"+error)
+        process.exit()
+    }
+}
+connectMongoDB()
+
