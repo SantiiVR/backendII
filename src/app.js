@@ -25,10 +25,10 @@ app.use(express.json())
 app.use(express.urlencoded())
 
 //handlebars
-app.engine(`handlebars`, Handlebars.engine())
-app.set(`views`, __dirname, `/views`) 
-app.set(`view engine`, `handlebars`)
-app.use(express.static(__dirname+`/public`))
+app.engine('handlebars', Handlebars.engine())
+app.set('views', __dirname, '/views') 
+app.set('view engine', 'handlebars')
+app.use(express.static(__dirname+'/public'))
 
 //mongo
 const url_Mongo = process.env.MONGO_URl

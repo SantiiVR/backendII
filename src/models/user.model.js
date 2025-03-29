@@ -12,8 +12,8 @@ const collection= new mongoose.Schema({
     loggedBy: String,
     role: {
         type: String,
-        enum: [`admin`, `user`],
-        default: `user`
+        enum: ['admin', 'user'],
+        default: 'user'
     }
 })
 

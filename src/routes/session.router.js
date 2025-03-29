@@ -6,7 +6,7 @@ import {isValidPassword, generateJWToken} from "../utils.js"
 const router = Router()
 
 router.post("/register", passport.authenticate(
-    `register`, {failureRedirect: `/api/sessions/fail-register`}),
+    'register', {failureRedirect: '/api/sessions/fail-register'}),
     async (req, res) => {
         console.log("registrando nuevo usuario")
         res.status(201).send({status: "success", message: "usuario creado con exito"})
@@ -46,7 +46,6 @@ router.post("/register", passport.authenticate(
             })
 
             res.send({message: "Login successfull"})
-
 
         } catch (error) {
             console.error(error);

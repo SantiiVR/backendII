@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {authToken, passportCall, authorization} from `../utils.js`;
+import {authToken, passportCall, authorization} from '../utils.js';
 
 const router=Router()
 
@@ -12,7 +12,7 @@ router.get("/register", (req , res) => {
 })
 
 router.get("/",
-    passportCall(`jwt`),
+    passportCall('jwt'),
     (req , res) => {
         res.render("profile",{
             user: req.user
@@ -20,7 +20,7 @@ router.get("/",
     })
 
 router.get("/dashboard-admin",
-    passportCall(`jwt`),
+    passportCall('jwt'),
     authorization("admin"),
     (req , res) => {
         res.render("admin", {

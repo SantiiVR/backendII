@@ -1,12 +1,38 @@
 import passport from "passport";
 import userModel from "../models/user.model";
 import passportLocal from `passport-local`
-import { createHash } from "../../utils";
+import { createHash, PRIVATE_KEY, cookieExtractor } from "../utils.js";
+import jwtStrategy from "passport-jwt";
 
 
 const localStrategy = passportLocal.Strategy
+const JwtStrategy = jwtStrategy.Strategy
+const ExtractJwt = jwtStrategy.ExtractJwt
 
 const initializePassport = () => {
+    passport.use('jwt', new JwtStrategy(
+        {
+            jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+            secret0rKey: PRIVATE_KEY
+        }, async (jwt_payload, done) => {
+            console.log("entrando a passport strategy con jwt")
+            try {
+                console.log("jwt obtenido del payload")
+                console.log(jwt_payload)
+                return done(null, jwt_payload-user)
+            } catch (error) {
+                return done(error)
+            }
+        }
+    ))
+
+
+
+
+
+
+
+
     passport.use(`register`, new localStrategy(
         {passReqToCallback: true, usernameField: `email`},
         async (requestAnimationFrame, username, password, done) => {
