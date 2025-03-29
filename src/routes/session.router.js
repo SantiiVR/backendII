@@ -53,3 +53,4 @@ router.post("/register", passport.authenticate(
         }
     })
 
+export default router

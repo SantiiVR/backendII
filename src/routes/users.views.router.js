@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {authToken, passportCall, authorization} from '../utils.js';
+import {passportCall, authorization} from '../utils.js';
 
 const router=Router()
 
@@ -27,3 +27,7 @@ router.get("/dashboard-admin",
             user: req.user
         })
     })
+
+
+
+    export default router
