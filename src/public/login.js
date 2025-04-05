@@ -18,7 +18,7 @@ form.addEventListener('submit', e => {
                 alert ("login realizado")
             })
             window.location.replace('/users')
-        }else if (result.status === 401){
+        } else if (result.status === 401){
             alert("Credenciales no validas")
         }
     })

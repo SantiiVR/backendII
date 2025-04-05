@@ -2,7 +2,6 @@
 import express from "express";
 import Handlebars from "express-handlebars";
 import mongoose from "mongoose";
-import cookieParser from "cookie-parser";
 import passport from "passport";
 import __dirname from "./utils.js";
 import session from "express-session";
@@ -10,6 +9,7 @@ import dotenv from "dotenv";
 import initializePassport from "./config/passport.config.js";
 import MongoStore from "connect-mongo";
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
 
 //Rutas
 import userViewsRouter from "./routes/users.views.router.js"
@@ -22,13 +22,18 @@ dotenv.config()
 
 //JSON config
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: true}))
 
 //handlebars
 app.engine('handlebars', Handlebars.engine())
 app.set('views', __dirname, '/views') 
 app.set('view engine', 'handlebars')
 app.use(express.static(__dirname+'/public'))
+
+
+//cookie
+app.use(cookieParser("CoderS3cr3tC0d3"))
+
 
 //mongo
 const url_Mongo = process.env.MONGO_URl
